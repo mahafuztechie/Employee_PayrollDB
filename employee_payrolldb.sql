@@ -1,5 +1,7 @@
+---uc1--create database-----employee payroll--------
 create DATABASE Employee_payroll;
 use Employee_payroll;
+----uc2----create table----- employee payroll------
 CREATE TABLE emp_payroll(
 Id int IDENTITY(1,1) PRIMARY KEY,
 Name varchar(200),
@@ -7,23 +9,28 @@ Salary float,
 StartDate Date
 );
 
+-----uc3-----perform crud--------
 insert into emp_payroll (Name, Salary, StartDate)
 values('john', 35000, '03-09-2010'),('joe', 45000, '08-06-2015');
 
-
+------uc4----view table----
 select * from emp_payroll;
 select * from emp_payroll where Name='joe' or Name='james';
+
+----uc5----retrieve data between date range--------
 select * from emp_payroll where StartDate between cast('2014-01-02' as date) and getdate();
 
 insert into emp_payroll (Name, Salary, StartDate)
 values('alexa', 55000, '2020-02-04'),('roshni', 40000, '2021-12-12');
 
 delete from emp_payroll where Id=5 or Id=6;
-Alter table emp_payroll add Gender char(1);
 
+----uc6----add gender field------
+Alter table emp_payroll add Gender char(1);
 update emp_payroll set Gender='M' where Id=2 or Id=1;
 update emp_payroll set Gender='F' where Id=7 or Id=8;
 
+-----uc7-----find sum avg max min count of employee salary group by gender---------
 select sum(Salary) as TotalSalary from emp_payroll;
 select sum(Salary) as Salary, Gender from emp_payroll group by Gender;
 select sum(Salary) as FemaleSalary from emp_payroll where Gender='F';
@@ -56,13 +63,13 @@ ALTER TABLE emp_payroll
 SELECT * FROM emp_payroll;
 
 
----uc10---
+---uc10---insert data---------
 INSERT INTO emp_payroll 
 	VALUES('sachin',35000,'2019-10-31','M',123456789,'Mumbai','Marketing',1000,14000,1400,12600);
 	SELECT * FROM emp_payroll WHERE Name='sachin';
 
 	--usecase11
---Add the tables according to ER Diagram
+-- drop & recreate the tables according to ER Diagram
 DROP TABLE emp_payroll;
 
 --Creating table Company
@@ -123,7 +130,7 @@ SELECT * FROM Department;
 SELECT * FROM Employee;
 SELECT * FROM Payroll;
 
---Redoing usecase7 to perform database functions and use group bu function
+--Redoing usecase7 to perform database functions and use group by function
 --Using joins
 SELECT SUM(basic_pay) AS SALARY_F, AVG(taxable_pay) AS AVERAGE_F, 
         MIN(tax) AS MINIMUM_F, MAX(net_pay) AS MAXIMUM_F, COUNT(payroll_id) AS COUNT_PAYROLL
